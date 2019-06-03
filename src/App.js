@@ -1,26 +1,42 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import  Videos from './videos';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import  VideoList from './components/VideoList/video_list';
+import  VideoDetails from "./components/VideoDetails/video_details";
+import  SearchBar from './components/SearchBar/search_bar';
+import Nav from "./components/Nav/nav";
+
+
+
+
+class App extends React.Component {
+
+state = {
+  videos: [...Videos],
+  selectedVideo: Videos[0]
+};
+
+searchVideoHandler = term =>{
+  let result = [...Videos].filter(item => item.title.includes(term.toLowerCase()));
+  this.setState({videos:result})
+
+}
+
+  render(){
+    return (
+        <div>
+          <Nav className="App">
+            <SearchBar onSearchVideos={this.searchVideoHandler}/>
+          </Nav>
+          <VideoDetails video = {this.state.selectedVideo}/>
+          <VideoList videos = {this.state.videos}
+                     onVideoSelect={video => this.setState({selectedVideo: video})}
+          />
+        </div>
+    );
+  }
+
 }
 
 export default App;
