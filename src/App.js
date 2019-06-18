@@ -1,13 +1,10 @@
 import React from 'react';
 import './App.css';
 import  Videos from './videos';
-
 import VideoList from "./components/video_list"
-import  VideoDetails from "./components/video_details/video_details";
-import  SearchBar from "./components/search_bar/search_bar";
+import  VideoDetails from "./components/video_details";
+import  SearchBar from "./components/search_bar";
 import Nav from "./components/nav/nav";
-
-
 
 
 class App extends React.Component {
@@ -17,6 +14,7 @@ state = {
   selectedVideo: Videos[0]
 
 };
+
 
 searchVideoHandler = term =>{
     console.log(Videos);

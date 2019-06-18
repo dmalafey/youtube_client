@@ -6,7 +6,15 @@ const VideoList = ({ videos, onVideoSelect }) => {
   if (videos == null) {
     return null;
   }
-  const videoItems = videos.map(v => <VideoListItem video={v} key={v.id} onVideoSelect={onVideoSelect} />);
+
+  const videoItems = videos.map(v => (
+    <VideoListItem
+      video={v}
+      key={v.id}
+      onVideoSelect={onVideoSelect}
+    />
+  ));
+
   return (
     <ul>
       {videoItems}
