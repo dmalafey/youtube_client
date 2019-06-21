@@ -1,4 +1,5 @@
 import React from 'react';
+
 import './search_bar.css';
 
 const SearchBar = ({ onSearchVideos }) => (
@@ -11,5 +12,6 @@ const SearchBar = ({ onSearchVideos }) => (
     />
   </div>
 );
+
 
 export default SearchBar;

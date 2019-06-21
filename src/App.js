@@ -1,44 +1,48 @@
 import React from 'react';
 import './App.css';
-import  Videos from './videos';
-import VideoList from "./components/video_list"
-import  VideoDetails from "./components/video_details";
-import  SearchBar from "./components/search_bar";
-import Nav from "./components/nav/nav";
 
+import VideoList from './components/VideoList'
+import  VideoDetails from './components/VideoDetails';
+import  SearchBar from './components/SearchBar';
+import Nav from './components/Nav';
+import  FakeServer from './FakeServer'
 
 class App extends React.Component {
 
-state = {
-  videos: [...Videos],
-  selectedVideo: Videos[0]
+    constructor(props) {
+        super(props);
 
-};
+        this.state = {
+            videos:[],
+            selectedVideo: ''
 
+        };
+    }
 
-searchVideoHandler = term =>{
-    console.log(Videos);
-  let result = [...Videos].filter(item => item.title.toLowerCase().includes(term.toLowerCase()));
-  this.setState({videos:result});
-  console.log(term);
-  console.log(result)
+    searchVideoHandler = term => {
+        FakeServer(term).then((done) => {
 
-}
+            this.setState({videos: done});
 
-  render(){
-    return (
-        <div>
-          <Nav className="App">
-            <SearchBar onSearchVideos={this.searchVideoHandler} />
-          </Nav>
-          <VideoDetails video = {this.state.selectedVideo}/>
-          <VideoList videos = {this.state.videos}
-                     onVideoSelect={video => this.setState({selectedVideo: video})}
-          />
-        </div>
-    );
-  }
+        })
 
+    };
+
+    selectVideoHandle = video => this.setState({selectedVideo: video});
+
+    render(){
+        return (
+            <div>
+                <Nav className="App">
+                    <SearchBar onSearchVideos={this.searchVideoHandler} />
+                </Nav>
+                <VideoDetails video={this.state.selectedVideo}/>
+                <VideoList videos={this.state.videos}
+                           onVideoSelect={this.selectVideoHandle}
+                />
+            </div>
+        );
+    }
 }
 
 export default App;
